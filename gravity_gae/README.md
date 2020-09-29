@@ -14,5 +14,14 @@
 
 Precision是指，在所有识别的测试集中，True positive所占的比率。  
 
-质能方程 $$xyz$$  
-$$E=mc^2$$
+$$Precision=\frac{TP}{TP+FP}$$  
+Recall 是测试集中所有正样本样例中，被正确识别为正样本的比例。  
+
+$$Recall=\frac{TP}{TP+FN}$$  
+
+下图是P/R曲线画到一起的图。
+
+<img src="https://github.com/QUAFFquaff/gracvity_graph_autoencoders/blob/master/pic_for_md/pr_graph.jpg?raw=true" width = "550" height = "300" alt="Structure" align=center /> 
+
+在二分类时选取阈值有时候会参考P-R曲线，选取两个曲线的交点。
+
