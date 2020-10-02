@@ -91,34 +91,21 @@ def draw_result_html(graph,features,test,test_false, preds, preds_false):
 
     prob_pick = {}
     prob_diff = {}
-    one_dir = []
-    not_in_graph = []
     for ind in range(len(test)):
         line = test[ind]
         temp = str(line[0])+'@'+str(line[1])
         temp1 = str(line[1])+'@'+str(line[0])
         name0 = id_to_name[features[line[0]]]
         name1 = id_to_name[features[line[1]]]
-        if temp1 not in check_set:
-            # edges.append({"source": str(g_ind_to_id[line[0]]),
-            #               "target": str(g_ind_to_id[line[1]]),
-            #               "value": "{} -> {},：{:.2}".
-            #              format(name0, name1, check_set[temp])
-            #               })
+        # if temp1 not in check_set:
+        #     one_dir.append([g_ind_to_id[line[1]],g_ind_to_id[line[0]]])
+        #     insert_dic(prob_pick,name0 + '->' + name1, check_set[temp])
+        # elif temp not in check_set:
+        #
+        #     one_dir.append([g_ind_to_id[line[1]],g_ind_to_id[line[0]]])
+        #     insert_dic(prob_pick,name1+'->'+name0, check_set[temp])
 
-            one_dir.append([g_ind_to_id[line[1]],g_ind_to_id[line[0]]])
-            insert_dic(prob_pick,name0 + '->' + name1, check_set[temp])
-        elif temp not in check_set:
-
-            # edges.append({"source": str(g_ind_to_id[line[1]]),
-            #               "target": str(g_ind_to_id[line[0]]),
-            #               "value" : "{} -> {},：{:.2}".
-            #              format(name1,name0,check_set[temp1])
-            #               })
-            one_dir.append([g_ind_to_id[line[1]],g_ind_to_id[line[0]]])
-            insert_dic(prob_pick,name1+'->'+name0, check_set[temp])
-
-        elif check_set[temp1]>check_set[temp]:
+        if check_set[temp1]>check_set[temp]:
             edges.append({"source": str(g_ind_to_id[line[1]]),
                           "target": str(g_ind_to_id[line[0]]),
                           "value" : "{} -> {},：{:.2}".
@@ -146,39 +133,33 @@ def draw_result_html(graph,features,test,test_false, preds, preds_false):
         corr_name [k] = np.mean(v)
     for k,v in acc_name.items():
         acc_name [k] = np.mean(v)
-    json_file = './statistics.json'
-    with open(json_file, 'w', encoding='utf-8') as f:
-        json.dump(links_prob,f,ensure_ascii=False,indent=1)
-    json_file_pick = './statistics_pick.json'
+
+    json_file_pick = './temp_res/statistics_pick.json'
     with open(json_file_pick, 'w', encoding='utf-8') as f:
         json.dump(prob_pick,f,ensure_ascii=False,indent=1)
 
-    json_file_diff = './statistics_diff.json'
+    json_file_diff = './temp_res/statistics_diff.json'
     with open(json_file_diff, 'w', encoding='utf-8') as f:
         json.dump(prob_diff, f, ensure_ascii=False, indent=1)
 
-    json_file_corr = './statistics_corr.json'
+    json_file_corr = './temp_res/statistics_corr.json'
     with open(json_file_corr, 'w', encoding='utf-8') as f:
         json.dump(corr_name, f, ensure_ascii=False, indent=1)
 
-    json_file_corr = './graph.json'
-    with open(json_file_corr, 'w', encoding='utf-8') as f:
-        json.dump(graph, f, ensure_ascii=False, indent=1)
-    json_file_corr = './one_dir.json'
-    with open(json_file_corr, 'w', encoding='utf-8') as f:
-        json.dump(one_dir, f, ensure_ascii=False, indent=1)
-    json_file_corr = './check_set.json'
+    # json_file_corr = './graph.json'
+    # with open(json_file_corr, 'w', encoding='utf-8') as f:
+    #     json.dump(graph, f, ensure_ascii=False, indent=1)
+    json_file_corr = './temp_res/check_set.json'
     with open(json_file_corr, 'w', encoding='utf-8') as f:
         json.dump(check_set, f, ensure_ascii=False, indent=1)
-    json_file_corr = './acc_name.json'
+    json_file_corr = './temp_res/acc_name.json'
     with open(json_file_corr, 'w', encoding='utf-8') as f:
         json.dump(acc_name, f, ensure_ascii=False, indent=1)
 
+    #
+    # np.savetxt('testlist.txt', test,fmt="%d")
 
-    np.savetxt('testlist.txt', test,fmt="%d")
 
-
-    # links = [opts.GraphLink(source=nodes_id.index(e[0]), target=nodes_id.index(e[1])) for e in G.edges()]
     file_name = "temp_res/predict_epoch200_v2.html"
     (
         Graph(init_opts=opts.InitOpts(width="1600px", height="800px"))
@@ -186,7 +167,7 @@ def draw_result_html(graph,features,test,test_false, preds, preds_false):
             series_name="",
             nodes=nodes,
             links=edges,
-            repulsion=2000,
+            # repulsion=2000,
             # layout="none",
             #         is_roam=True,
             is_selected=False,

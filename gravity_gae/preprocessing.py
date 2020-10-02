@@ -67,7 +67,6 @@ def mask_test_edges_general_link_prediction(adj, graph, feature_arr, test_percen
     edges_positive, values, _ = sparse_to_tuple(res)
     # Number of positive (and negative) edges in test and val sets:
     num_test = int(np.floor(edges_positive.shape[0] / (100. / test_percent)))
-    num_test = int(np.floor(edges_positive.shape[0] ))
     num_val = int(np.floor(edges_positive.shape[0] / (100. / val_percent)))
 
     # Sample positive edges for test and val sets:
@@ -78,7 +77,8 @@ def mask_test_edges_general_link_prediction(adj, graph, feature_arr, test_percen
     val_edges = edges_positive[val_edge_idx]
     # positive test edges
     # use all to test
-    test_edges = edges_positive[:]
+    test_edge_idx = edges_positive_idx[num_val:(num_val + num_test)]
+    test_edges = edges_positive[test_edge_idx]
     # positive train edges
     # original
     # train_edges = np.delete(edges_positive, np.hstack([test_edge_idx, val_edge_idx]), axis = 0)
@@ -89,7 +89,7 @@ def mask_test_edges_general_link_prediction(adj, graph, feature_arr, test_percen
     # (Text from philipjackson)
     # The above strategy for sampling without replacement will not work for sampling
     # negative edges on large graphs, because the pool of negative edges
-    # is much much larger due to sparsity, therefore we'll use the following strategy:
+    # is much much larger due to sparsiety, therefore we'll use the following strategy:
     # 1. sample random linear indices from adjacency matrix WITH REPLACEMENT
     # (without replacement is super slow). sample more than we need so we'll probably
     # have enough after all the filtering steps.
@@ -166,8 +166,8 @@ def mask_test_edges_general_link_prediction(adj, graph, feature_arr, test_percen
     adj.eliminate_zeros()
     edges_positive, values, _ = sparse_to_tuple(adj)
     test_edges = edges_positive
-    np.savetxt('train_edges.txt', train_edges,fmt="%d")
-    np.savetxt('test_edges.txt', test_edges,fmt="%d")
+    # np.savetxt('train_edges.txt', train_edges,fmt="%d")
+    # np.savetxt('test_edges.txt', test_edges,fmt="%d")
     return adj_train, val_edges, val_edges_false, test_edges, test_edges_false
 
 

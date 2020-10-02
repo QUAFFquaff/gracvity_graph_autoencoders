@@ -6,24 +6,23 @@
 # @Software: PyCharm
 
 
-import networkx as nx
-import numpy as np
-from scipy import sparse
-import numpy as np
-import scipy.sparse as sp
-def sparse_to_tuple(sparse_mx):
-    if not sp.isspmatrix_coo(sparse_mx):
-        sparse_mx = sparse_mx.tocoo()
-    coords = np.vstack((sparse_mx.row, sparse_mx.col)).transpose()
-    values = sparse_mx.data
-    shape = sparse_mx.shape
-    return coords, values, shape
+line1=input().split()
+num_point=int(line1[0])
+num_query=int(line1[1])
 
-g = {1:[2,9],2:[3],3:[1],5:[9],9:[2]}
-# GG= nx.from_dict_of_lists(g)
-# print("directed graph:\n", GG.edges())
-# adj = nx.adjacency_matrix(GG)
-# print("method: adjacency_matrix\n", adj)
-a = ["1","2","-7"]
-y = sorted(a)
-print(ys)
+line2=input().split()
+int_list=[int(_) for _ in line2]
+# 对int_list进行升序排列
+for i in range(num_point):
+    for j in range(num_point-i-1):
+        if int_list[j]>int_list[j+1]:
+            temp=int_list[j]
+            int_list[j]=int_list[j+1]
+            int_list[j+1]=temp
+output=[]
+for k in range(num_query):
+    temp_line=input().split()
+    left=int(temp_line[0])
+    right=int(temp_line[1])
+
+    print(len(set()))

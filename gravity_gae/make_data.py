@@ -34,65 +34,7 @@ extend_type_pos = 5
 who_conn_this = 6
 
 
-# 所有阀 都叫阀
-# aircondition0101
-temp = [[0, 0, 2, [4,14], [], [],[1]],
-        [1, 2, 1, [0], [], [],[2]],
-        [2, 3, 1, [1], [], [],[3]],
-        [3, 1, 2, [2,4,], [], [],[15]],
-        [4, 5, 2, [0,3], [], [],[0,3]],
-        [5, 5, 1, [6,], [], [],[13]],
-        [6, 4, 1, [15], [], [],[5]],
-        [7, 5, 1, [8,], [], [],[13]],
-        [8, 4, 1, [15], [], [],[7,]],
-        [9, 5, 1, [10], [], [],[14]],
-        [10, 4, 1, [15,], [], [],[9]],
-        [11, 5, 1, [15], [], [],[12,]],
-        [12, 8, 1, [11], [], [],[]],
-        [13, 9, 2, [5,7,], [], [],[14]],
-        [14, 9, 2, [13,9], [], [],[0,]],
-        [15, 9, 1, [3], [], [],[6,8,10,11]],
-        ]
 
-# 所有阀 都叫阀
-# cold_water0201
-temp3 =  [[0, 0, 0, [ ], [6,7], [5,5],[2]],
-        [1, 2, 1, [ 4], [], [],[]],
-        [2, 4, 1, [ 0], [], [],[3]],
-        [3, 10, 2, [2,5], [], [],[5,6,10]],
-        [4, 10, 3, [5, 9,12], [3,9], [5,5],[1]],
-        [5,5, 2, [3,4],[],[],[3,4]],
-        [6, 3, 1, [3,], [0], [5],[7]],
-        [7, 5, 1, [6],[],[],[8,]],
-        [8, 10, 2, [7,11,], [3], [5],[9,12]],
-        [9, 4, 1, [8,], [4], [5],[4]],
-        [10, 3, 1, [3,], [0], [5],[11]],
-        [11, 5, 1, [10,],[],[],[8]],
-        [12, 4, 1, [8,], [4], [5],[4]],
-        ]
-
-ex_li3 = [[12],[6,7,9]]
-
-
-ex_li = [[9,10]]
-ex_va_li = []
-
-# aricondition0301
-temp2 = [[0, 13, 1, [1], [1], [5],[]],
-        [1, 12, 1, [2], [2,0], [5,5],[0]],
-        [2, 14, 1, [3], [1], [],[1,4]],
-        [3, 15, 0, [], [1], [],[2]],
-        [4, 11, 1, [2], [1], [],[]],
-        ]
-ex_li2 = [[3],[4,3],[2,3,4]]
-
-# aircondition0302
-temp4 = [[0, 15, 0, [], [1], [5],[1]],
-        [1, 14, 1, [0], [2,0], [5,5],[2]],
-        [2, 11, 1, [1], [1], [5],[]],
-        ]
-
-ex_li4 = [[0],[0,2]]
 
 def add_new_valve(g, c_p0, c_p1):
     try:
@@ -256,16 +198,16 @@ def get_file_name():
 def get_data():
     temp_out = []
     input_file_list = get_file_name()
-    for file_name in input_file_list:
-        temp, ex_li = load_csv_data(file_name)
-        for i in range(10):
-            iteration_controll(temp, 0, ex_li, temp_out,1)
+    # for file_name in input_file_list:
+    #     temp, ex_li = load_csv_data(file_name)
+    #     for i in range(2):
+    #         iteration_controll(temp, 0, ex_li, temp_out,1)
     # temp, ex_li = load_csv_data('../data/csv_input_data/2-15-1.csv ')
-    # for i in range(1):
+    # for i in range(5):
     #     iteration_controll(temp, 0, ex_li, temp_out,1)
-    # temp, ex_li = load_csv_data('../data/csv_input_data/2-16-1.csv')
-    # for i in range(10):
-    #     iteration_controll(temp, 0, ex_li, temp_out,1)
+    temp, ex_li = load_csv_data('../data/csv_input_data/2-16-1.csv')
+    for i in range(20):
+        iteration_controll(temp, 0, ex_li, temp_out,1)
     print('There are {} graph in the list'.format(len(temp_out)))
 
     final_out = []
