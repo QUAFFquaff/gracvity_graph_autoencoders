@@ -166,8 +166,9 @@ def mask_test_edges_general_link_prediction(adj, graph, feature_arr, test_percen
     adj.eliminate_zeros()
     edges_positive, values, _ = sparse_to_tuple(adj)
     test_edges = edges_positive
-    # np.savetxt('train_edges.txt', train_edges,fmt="%d")
-    # np.savetxt('test_edges.txt', test_edges,fmt="%d")
+    val_edges_false = [[line[1],line[0]]for line in val_edges]
+    np.savetxt('val_edges.txt', val_edges,fmt="%d")
+    np.savetxt('val_edges_false.txt', val_edges_false,fmt="%d")
     return adj_train, val_edges, val_edges_false, test_edges, test_edges_false
 
 

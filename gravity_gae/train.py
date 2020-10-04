@@ -44,7 +44,7 @@ flags.DEFINE_string('task', 'task_1', 'Name of the link prediction task')
 '''
 
 # Model
-flags.DEFINE_string('model', 'gravity_gcn_vae', 'Name of the model')
+flags.DEFINE_string('model', 'gravity_gcn_ae', 'Name of the model')
 ''' Available Models:
 
 - gcn_ae: Graph Autoencoder from Kipf and Welling (2016), with 2-layer
@@ -78,23 +78,23 @@ flags.DEFINE_float('lamb', 1., 'lambda parameter from Gravity AE/VAE models \
                                 as introduced in section 3.5 of paper, to \
                                 balance mass and proximity terms')
 flags.DEFINE_float('learning_rate', 0.01, 'Initial learning rate (with Adam)')
-flags.DEFINE_integer('hidden', 32, 'Number of units in GCN hidden layer.')
-flags.DEFINE_integer('dimension', 32, 'Dimension of GCN output: \
+flags.DEFINE_integer('hidden', 64, 'Number of units in GCN hidden layer.')
+flags.DEFINE_integer('dimension', 16, 'Dimension of GCN output: \
 - equal to embedding dimension for standard AE/VAE and source-target AE/VAE \
 - equal to (embedding dimension - 1) for gravity-inspired AE/VAE, as the \
 last dimension captures the "mass" parameter tilde{m}')
-flags.DEFINE_boolean('normalize', False, 'Whether to normalize embedding \
+flags.DEFINE_boolean('normalize', True, 'Whether to normalize embedding \
                                           vectors of gravity models')
 flags.DEFINE_float('epsilon', 0.01, 'Add epsilon to distances computations \
                                        in gravity models, for numerical \
                                        stability')
 # Experimental setup parameters
 flags.DEFINE_integer('nb_run', 1, 'Number of model run + test')
-flags.DEFINE_float('prop_val', 30., 'Proportion of edges in validation set \
+flags.DEFINE_float('prop_val', 10., 'Proportion of edges in validation set \
                                    (for Task 1)')
-flags.DEFINE_float('prop_test', 1., 'Proportion of edges in test set \
+flags.DEFINE_float('prop_test', 4., 'Proportion of edges in test set \
                                       (for Tasks 1 and 2)')
-flags.DEFINE_boolean('validation', False, 'Whether to report validation \
+flags.DEFINE_boolean('validation', True, 'Whether to report validation \
                                            results  at each epoch (for \
                                            Task 1)')
 flags.DEFINE_boolean('verbose', True, 'Whether to print comments details.')
