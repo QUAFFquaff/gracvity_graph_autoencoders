@@ -77,7 +77,7 @@ flags.DEFINE_boolean('features', True, 'Include node features or not in GCN')
 flags.DEFINE_float('lamb', 1., 'lambda parameter from Gravity AE/VAE models \
                                 as introduced in section 3.5 of paper, to \
                                 balance mass and proximity terms')
-flags.DEFINE_float('learning_rate', 0.01, 'Initial learning rate (with Adam)')
+flags.DEFINE_float('learning_rate', 0.1, 'Initial learning rate (with Adam)')
 flags.DEFINE_integer('hidden', 64, 'Number of units in GCN hidden layer.')
 flags.DEFINE_integer('dimension', 16, 'Dimension of GCN output: \
 - equal to embedding dimension for standard AE/VAE and source-target AE/VAE \
@@ -92,7 +92,7 @@ flags.DEFINE_float('epsilon', 0.01, 'Add epsilon to distances computations \
 flags.DEFINE_integer('nb_run', 1, 'Number of model run + test')
 flags.DEFINE_float('prop_val', 10., 'Proportion of edges in validation set \
                                    (for Task 1)')
-flags.DEFINE_float('prop_test', 4., 'Proportion of edges in test set \
+flags.DEFINE_float('prop_test', 2., 'Proportion of edges in test set \
                                       (for Tasks 1 and 2)')
 flags.DEFINE_boolean('validation', True, 'Whether to report validation \
                                            results  at each epoch (for \
