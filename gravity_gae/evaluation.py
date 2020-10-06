@@ -64,7 +64,7 @@ def  compute_scores(edges_pos, edges_neg, emb):
     # Stack all predictions and labels
     preds_all = np.hstack([preds, preds_neg])
     labels_all = np.hstack([np.ones(len(preds)), np.zeros(len(preds_neg))])
-
+    np.savetxt("preds.txt",preds)
     # Computes metrics
     roc_score = roc_auc_score(labels_all, preds_all)
     ap_score = average_precision_score(labels_all, preds_all)

@@ -200,13 +200,14 @@ def get_data():
     input_file_list = get_file_name()
     # for file_name in input_file_list:
     #     temp, ex_li = load_csv_data(file_name)
-    #     for i in range(2):
+    #     for i in range(5):
     #         iteration_controll(temp, 0, ex_li, temp_out,1)
     # temp, ex_li = load_csv_data('../data/csv_input_data/2-15-1.csv ')
     # for i in range(5):
     #     iteration_controll(temp, 0, ex_li, temp_out,1)
     temp, ex_li = load_csv_data('../data/csv_input_data/2-16-1.csv')
-    for i in range(100):
+    # temp, ex_li = load_csv_data('../data/csv_input_data/test.csv')
+    for i in range(5):
         iteration_controll(temp, 0, ex_li, temp_out,1)
     print('There are {} graph in the list'.format(len(temp_out)))
 

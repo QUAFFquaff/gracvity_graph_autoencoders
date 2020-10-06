@@ -44,7 +44,7 @@ flags.DEFINE_string('task', 'task_1', 'Name of the link prediction task')
 '''
 
 # Model
-flags.DEFINE_string('model', 'gravity_gcn_ae', 'Name of the model')
+flags.DEFINE_string('model', 'source_target_gcn_ae', 'Name of the model')
 ''' Available Models:
 
 - gcn_ae: Graph Autoencoder from Kipf and Welling (2016), with 2-layer
@@ -74,10 +74,10 @@ flags.DEFINE_string('model', 'gravity_gcn_ae', 'Name of the model')
 flags.DEFINE_float('dropout', 0., 'Dropout rate (1 - keep probability).')
 flags.DEFINE_integer('epochs', 200, 'Number of epochs in training.')
 flags.DEFINE_boolean('features', True, 'Include node features or not in GCN')
-flags.DEFINE_float('lamb', 1., 'lambda parameter from Gravity AE/VAE models \
+flags.DEFINE_float('lamb', .05, 'lambda parameter from Gravity AE/VAE models \
                                 as introduced in section 3.5 of paper, to \
                                 balance mass and proximity terms')
-flags.DEFINE_float('learning_rate', 0.1, 'Initial learning rate (with Adam)')
+flags.DEFINE_float('learning_rate', .001, 'Initial learning rate (with Adam)')
 flags.DEFINE_integer('hidden', 64, 'Number of units in GCN hidden layer.')
 flags.DEFINE_integer('dimension', 16, 'Dimension of GCN output: \
 - equal to embedding dimension for standard AE/VAE and source-target AE/VAE \
@@ -85,7 +85,7 @@ flags.DEFINE_integer('dimension', 16, 'Dimension of GCN output: \
 last dimension captures the "mass" parameter tilde{m}')
 flags.DEFINE_boolean('normalize', True, 'Whether to normalize embedding \
                                           vectors of gravity models')
-flags.DEFINE_float('epsilon', 0.01, 'Add epsilon to distances computations \
+flags.DEFINE_float('epsilon', 4.1, 'Add epsilon to distances computations \
                                        in gravity models, for numerical \
                                        stability')
 # Experimental setup parameters
@@ -94,7 +94,7 @@ flags.DEFINE_float('prop_val', 10., 'Proportion of edges in validation set \
                                    (for Task 1)')
 flags.DEFINE_float('prop_test', 2., 'Proportion of edges in test set \
                                       (for Tasks 1 and 2)')
-flags.DEFINE_boolean('validation', True, 'Whether to report validation \
+flags.DEFINE_boolean('validation', False, 'Whether to report validation \
                                            results  at each epoch (for \
                                            Task 1)')
 flags.DEFINE_boolean('verbose', True, 'Whether to print comments details.')
@@ -122,7 +122,7 @@ for i in range(FLAGS.nb_run):
     if FLAGS.task == 'task_1':
         # Edge masking for General Directed Link Prediction
         adj, val_edges, val_edges_false, test_edges, test_edges_false = \
-        mask_test_edges_general_link_prediction(adj_init,graph, feature_arr, FLAGS.prop_test,
+        mask_test_edges_general_link_prediction(adj_init,graph, FLAGS.prop_test,
                                                 FLAGS.prop_val)
 
     elif FLAGS.task == 'task_2':
@@ -258,31 +258,29 @@ for i in range(FLAGS.nb_run):
     if FLAGS.verbose:
         print("Testing model...")
     # Compute ROC and AP scores on test sets
-    print("test_edges:",len(test_edges))
-    print("test_edges_false:",len(test_edges_false))
-    roc_score, ap_score, preds, preds_neg = compute_scores(test_edges, test_edges_false, emb)
+    roc_score, ap_score, preds, preds_neg = compute_scores(test_edges, test_edges, emb)
     # Draw result and compare
-    draw_result_html(graph,feature_arr,test_edges,test_edges_false,preds,preds_neg)
+    draw_result_html(graph,feature_arr,test_edges,test_edges,preds,preds_neg)
     # Append to list of scores over all runs
-    mean_roc.append(roc_score)
-    mean_ap.append(ap_score)
+    # mean_roc.append(roc_score)
+    # mean_ap.append(ap_score)
 
 # Report final results
-print("\nTest results for", FLAGS.model,
-      "model on", FLAGS.dataset, "on", FLAGS.task, "\n",
-      "___________________________________________________\n")
-
-print("AUC scores\n", mean_roc)
-print("Mean AUC score: ", np.mean(mean_roc),
-      "\nStd of AUC scores: ", np.std(mean_roc), "\n \n")
-
-print("AP scores \n", mean_ap)
-print("Mean AP score: ", np.mean(mean_ap),
-      "\nStd of AP scores: ", np.std(mean_ap), "\n \n")
-
-print("Running times\n", mean_time)
-print("Mean running time: ", np.mean(mean_time),
-      "\nStd of running time: ", np.std(mean_time), "\n \n")
+# print("\nTest results for", FLAGS.model,
+#       "model on", FLAGS.dataset, "on", FLAGS.task, "\n",
+#       "___________________________________________________\n")
+#
+# print("AUC scores\n", mean_roc)
+# print("Mean AUC score: ", np.mean(mean_roc),
+#       "\nStd of AUC scores: ", np.std(mean_roc), "\n \n")
+#
+# print("AP scores \n", mean_ap)
+# print("Mean AP score: ", np.mean(mean_ap),
+#       "\nStd of AP scores: ", np.std(mean_ap), "\n \n")
+#
+# print("Running times\n", mean_time)
+# print("Mean running time: ", np.mean(mean_time),
+#       "\nStd of running time: ", np.std(mean_time), "\n \n")
 
 
 diff = adj-adj_init

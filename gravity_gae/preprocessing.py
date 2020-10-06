@@ -40,7 +40,7 @@ def construct_feed_dict(adj_normalized, adj, features, placeholders):
 import json
 # Edge Masking for the three directed link prediction tasks
 
-def mask_test_edges_general_link_prediction(adj, graph, feature_arr, test_percent=10.,
+def mask_test_edges_general_link_prediction(adj, graph,  test_percent=10.,
                                             val_percent=5.):
     """
     Task 1: General Directed Link Prediction: get Train/Validation/Test
