@@ -44,7 +44,7 @@ flags.DEFINE_string('task', 'task_1', 'Name of the link prediction task')
 '''
 
 # Model
-flags.DEFINE_string('model', 'source_target_gcn_ae', 'Name of the model')
+flags.DEFINE_string('model', 'gravity_gcn_vae', 'Name of the model')
 ''' Available Models:
 
 - gcn_ae: Graph Autoencoder from Kipf and Welling (2016), with 2-layer
@@ -179,7 +179,7 @@ for i in range(FLAGS.nb_run):
         model = SourceTargetGCNModelVAE(placeholders, num_features,
                                       num_nodes, features_nonzero)
     elif FLAGS.model == 'gravity_gcn_ae':
-        # Gravity-Inspired Graph Autoencoder
+        # Gravity-Inspire缘，妙不可言。d Graph Autoencoder
         model = GravityGCNModelAE(placeholders, num_features,
                                   features_nonzero)
     elif FLAGS.model == 'gravity_gcn_vae':

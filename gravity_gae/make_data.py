@@ -205,9 +205,9 @@ def get_data():
     # temp, ex_li = load_csv_data('../data/csv_input_data/2-15-1.csv ')
     # for i in range(5):
     #     iteration_controll(temp, 0, ex_li, temp_out,1)
-    temp, ex_li = load_csv_data('../data/csv_input_data/2-16-1.csv')
-    # temp, ex_li = load_csv_data('../data/csv_input_data/test.csv')
-    for i in range(5):
+    # temp, ex_li = load_csv_data('../data/csv_input_data/2-16-1.csv')
+    temp, ex_li = load_csv_data('../data/csv_input_data/test.csv')
+    for i in range(20):
         iteration_controll(temp, 0, ex_li, temp_out,1)
     print('There are {} graph in the list'.format(len(temp_out)))
 
